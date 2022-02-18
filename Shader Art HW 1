@@ -1,0 +1,39 @@
+// Author: Jeremy Rotsztain
+// Course: ShaderArt (DIGF-3011, Winter 2022)
+// Title: Hello World (GLSL)
+ 
+// Edited by: Sara Hosseini Feb 16 2022
+ 
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+ 
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+ 
+void main() {
+    
+
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    
+
+    float pct = 0.0;
+    pct = distance(st,vec2(0.40,0.50));
+ 
+    // fix for aspect ratio
+    st.x *= u_resolution.x/u_resolution.y;
+ 
+    vec3 color = vec3(pct);
+    
+ 
+    // red as sinusodal curve positioned pct
+    color.r = sin(u_time-pct* 10.0)*1.0;
+    
+    color.p = fract(u_time-pct *10000.*-st.y);
+    
+    
+//     RGBA
+    gl_FragColor = vec4(color, 1.);
+}
