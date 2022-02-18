@@ -1,0 +1,34 @@
+// Author: Jeremy Rotsztain
+// Course: ShaderArt (DIGF-3011, Winter 2022)
+// Title: RGB Gradients 
+ 
+// Edited by: Sara Hosseini Feb 16 2022
+ 
+#ifdef GL_ES
+precision mediump float;
+#endif
+ 
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+    
+void main() {
+    
+    // normalize our canvas
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    
+    // normalize our mouse position
+    vec2 mouseXY = u_mouse / u_resolution;
+    
+    // set color #1 manually (purple)
+    vec3 red = vec3(0.422,0.000,2.000);
+    
+    // pick color #2 manually (pink)
+    vec3 blue = vec3(1.215,0.629,2.128);
+    
+    // change the 'space' where the gradient changes
+    // using GLSL "shaping functions"
+    vec3 color = mix( red, blue, smoothstep( 0.12,0.4*2.5, st.x));
+  
+    gl_FragColor = vec4(color,1.0);
+}
